@@ -104,8 +104,8 @@ impl Headset {
         match self {
             Headset::Unknown => HeadsetFamily::Unknown,
             Headset::OculusRiftCV1 => HeadsetFamily::Oculus,
-            Headset::HTCVive => HeadsetFamily::HTC,
-            Headset::HTCVivePro => HeadsetFamily::HTC,
+            Headset::HtcVive => HeadsetFamily::HTC,
+            Headset::HtcVivePro => HeadsetFamily::HTC,
             Headset::WindowsMixedReality => HeadsetFamily::Microsoft,
             Headset::OculusRiftS => HeadsetFamily::Oculus,
             Headset::OculusQuest => HeadsetFamily::Oculus,
