@@ -89,7 +89,7 @@ pub struct LeaderboardPlayer {
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Headset {
     Unknown = 0,
-    #[serde(rename("OCULUS_RIFT_CV1"))]
+    #[serde(rename = "OCULUS_RIFT_CV1")]
     OculusRiftCV1 = 1,
     HtcVive = 2,
     HtcVivePro = 4,
