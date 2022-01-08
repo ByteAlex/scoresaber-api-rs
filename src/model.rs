@@ -81,7 +81,7 @@ pub struct LeaderboardPlayer {
     pub profile_picture: String,
     pub country: String,
     pub permissions: u64,
-    pub role: String,
+    pub role: Option<String>,
 }
 
 #[repr(u32)]
