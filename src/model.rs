@@ -85,13 +85,14 @@ pub struct LeaderboardPlayer {
 }
 
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Serialize, Deserialize_repr, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Serialize, Deserialize, Deserialize_repr, Eq, PartialEq, Hash)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Headset {
     Unknown = 0,
+    #[serde(rename("OCULUS_RIFT_CV1"))]
     OculusRiftCV1 = 1,
-    HTCVive = 2,
-    HTCVivePro = 4,
+    HtcVive = 2,
+    HtcVivePro = 4,
     WindowsMixedReality = 8,
     OculusRiftS = 16,
     OculusQuest = 32,
