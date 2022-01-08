@@ -223,6 +223,25 @@ impl ApiClient {
             })
     }
 
+    pub async fn execute_with_logger<
+        'de,
+        T: DeserializeOwned,
+        L: Fn(String) -> (),
+    >(&self, route: Route, logger: L) -> reqwest::Result<T> {
+        let request = route.to_request(&self);
+        self.client.execute(request).await?
+            .text()
+            .await
+            .map(|res| {
+                serde_json::from_str(res.as_str())
+                    .map_err(|err| {
+                        logger(format!("{}", res));
+                        logger(format!("{}", err));
+                    })
+                    .expect("Failed to parse...")
+            })
+    }
+
     pub async fn get_players(&self, query: Option<GetPlayersQuery>) -> reqwest::Result<PlayerCollection> {
         self.execute(Route::GetPlayers(RouteParams::new((), query.unwrap_or_default()))).await
     }
