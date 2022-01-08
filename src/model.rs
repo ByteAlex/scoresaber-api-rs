@@ -19,7 +19,7 @@ pub struct Player {
     pub pp: f64,
     pub country_rank: u32,
     pub role: Option<String>,
-    pub badges: Option<Badge>,
+    pub badges: Option<Vec<Badge>>,
     pub histories: String,
     pub score_stats: Option<ScoreStats>,
     pub permissions: u64,
