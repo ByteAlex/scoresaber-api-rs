@@ -68,7 +68,7 @@ pub struct Score {
     pub missed_notes: u32,
     pub max_combo: u32,
     pub full_combo: bool,
-    pub hmd: Headset,
+    pub hmd: HeadsetRepr,
     pub has_replay: bool,
     pub time_set: DateTime<Utc>,
 }
@@ -85,11 +85,9 @@ pub struct LeaderboardPlayer {
 }
 
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Serialize, Deserialize, Deserialize_repr, Eq, PartialEq, Hash)]
-#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
-pub enum Headset {
+#[derive(Debug, Copy, Clone, Serialize_repr, Deserialize_repr, Eq, PartialEq, Hash)]
+pub enum HeadsetRepr {
     Unknown = 0,
-    #[serde(rename = "OCULUS_RIFT_CV1")]
     OculusRiftCV1 = 1,
     HtcVive = 2,
     HtcVivePro = 4,
@@ -99,17 +97,61 @@ pub enum Headset {
     ValveIndex = 64,
 }
 
-impl Headset {
+#[derive(Debug, Copy, Clone, Serialize, Deserialize, Eq, PartialEq, Hash)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
+pub enum Headset {
+    Unknown,
+    #[serde(rename = "OCULUS_RIFT_CV1")]
+    OculusRiftCV1,
+    HtcVive,
+    HtcVivePro,
+    WindowsMixedReality,
+    OculusRiftS,
+    OculusQuest,
+    ValveIndex,
+}
+
+impl Into<Headset> for HeadsetRepr {
+    fn into(self) -> Headset {
+        match self {
+            HeadsetRepr::Unknown => Headset::Unknown,
+            HeadsetRepr::OculusRiftCV1 => Headset::OculusRiftCV1,
+            HeadsetRepr::HtcVive => Headset::HtcVive,
+            HeadsetRepr::HtcVivePro => Headset::HtcVivePro,
+            HeadsetRepr::WindowsMixedReality => Headset::WindowsMixedReality,
+            HeadsetRepr::OculusRiftS => Headset::OculusRiftS,
+            HeadsetRepr::OculusQuest => Headset::OculusQuest,
+            HeadsetRepr::ValveIndex => Headset::ValveIndex,
+        }
+    }
+}
+
+impl From<Headset> for HeadsetRepr {
+    fn from(headset: Headset) -> Self {
+        match headset {
+            Headset::Unknown => HeadsetRepr::Unknown,
+            Headset::OculusRiftCV1 => HeadsetRepr::OculusRiftCV1,
+            Headset::HtcVive => HeadsetRepr::HtcVive,
+            Headset::HtcVivePro => HeadsetRepr::HtcVivePro,
+            Headset::WindowsMixedReality => HeadsetRepr::WindowsMixedReality,
+            Headset::OculusRiftS => HeadsetRepr::OculusRiftS,
+            Headset::OculusQuest => HeadsetRepr::OculusQuest,
+            Headset::ValveIndex => HeadsetRepr::ValveIndex,
+        }
+    }
+}
+
+impl HeadsetRepr {
     pub fn family(&self) -> HeadsetFamily {
         match self {
-            Headset::Unknown => HeadsetFamily::Unknown,
-            Headset::OculusRiftCV1 => HeadsetFamily::Oculus,
-            Headset::HtcVive => HeadsetFamily::HTC,
-            Headset::HtcVivePro => HeadsetFamily::HTC,
-            Headset::WindowsMixedReality => HeadsetFamily::Microsoft,
-            Headset::OculusRiftS => HeadsetFamily::Oculus,
-            Headset::OculusQuest => HeadsetFamily::Oculus,
-            Headset::ValveIndex => HeadsetFamily::Valve,
+            HeadsetRepr::Unknown => HeadsetFamily::Unknown,
+            HeadsetRepr::OculusRiftCV1 => HeadsetFamily::Oculus,
+            HeadsetRepr::HtcVive => HeadsetFamily::HTC,
+            HeadsetRepr::HtcVivePro => HeadsetFamily::HTC,
+            HeadsetRepr::WindowsMixedReality => HeadsetFamily::Microsoft,
+            HeadsetRepr::OculusRiftS => HeadsetFamily::Oculus,
+            HeadsetRepr::OculusQuest => HeadsetFamily::Oculus,
+            HeadsetRepr::ValveIndex => HeadsetFamily::Valve,
         }
     }
 }
