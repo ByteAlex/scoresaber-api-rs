@@ -95,6 +95,7 @@ pub enum HeadsetRepr {
     OculusRiftS = 16,
     OculusQuest = 32,
     ValveIndex = 64,
+    HtcViveCosmos = 128,
 }
 
 #[derive(Debug, Copy, Clone, Serialize, Deserialize, Eq, PartialEq, Hash)]
@@ -109,6 +110,7 @@ pub enum Headset {
     OculusRiftS,
     OculusQuest,
     ValveIndex,
+    HtcViveCosmos
 }
 
 impl Into<Headset> for HeadsetRepr {
@@ -122,6 +124,7 @@ impl Into<Headset> for HeadsetRepr {
             HeadsetRepr::OculusRiftS => Headset::OculusRiftS,
             HeadsetRepr::OculusQuest => Headset::OculusQuest,
             HeadsetRepr::ValveIndex => Headset::ValveIndex,
+            HeadsetRepr::HtcViveCosmos => Headset::HtcViveCosmos,
         }
     }
 }
@@ -137,6 +140,7 @@ impl From<Headset> for HeadsetRepr {
             Headset::OculusRiftS => HeadsetRepr::OculusRiftS,
             Headset::OculusQuest => HeadsetRepr::OculusQuest,
             Headset::ValveIndex => HeadsetRepr::ValveIndex,
+            Headset::HtcViveCosmos => HeadsetRepr::HtcViveCosmos,
         }
     }
 }
@@ -152,6 +156,7 @@ impl HeadsetRepr {
             HeadsetRepr::OculusRiftS => HeadsetFamily::Oculus,
             HeadsetRepr::OculusQuest => HeadsetFamily::Oculus,
             HeadsetRepr::ValveIndex => HeadsetFamily::Valve,
+            HeadsetRepr::HtcViveCosmos => HeadsetFamily::HTC,
         }
     }
 }
@@ -161,6 +166,7 @@ impl HeadsetRepr {
 pub enum HeadsetFamily {
     Unknown,
     Oculus,
+    #[serde(rename = "HTC")]
     HTC,
     Microsoft,
     Valve,
