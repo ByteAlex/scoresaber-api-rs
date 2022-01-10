@@ -59,7 +59,7 @@ pub struct Score {
     pub leaderboard_player_info: Option<LeaderboardPlayer>,
     pub rank: u32,
     pub base_score: u32,
-    pub modified_score: u32,
+    pub modified_score: i32, // it can be negative, gg
     pub pp: f32,
     pub weight: f32,
     pub modifiers: String,
